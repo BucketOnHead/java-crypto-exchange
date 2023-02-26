@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "39004a31-8d11-47c0-8455-d538edf30bde",
+		"name": "cryptoexg",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23144581"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Регистрация нового пользователя",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 201\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+									"});",
+									"pm.test(\"user has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"user has secret_key\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('secret_key');",
+									"});",
+									"pm.test(\"'secret_key' size must be 34\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.secret_key.length, '\"secret_key\" size must be 34').to.eql(34);",
+									"});",
+									"",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"user_1_secret_key\", jsonData.secret_key);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"vasya_vezunchik\",\n    \"email\": \"vasyu_kolbasit@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация нового пользователя (Дубликат почты)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"username\",\n    \"email\": \"vasyu_kolbasit@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация нового пользователя (Дубликат псевдонима)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"vasya_vezunchik\",\n    \"email\": \"email@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "userBaseUrl",
+			"value": "users"
+		}
+	]
+}
