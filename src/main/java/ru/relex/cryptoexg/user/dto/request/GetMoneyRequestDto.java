@@ -1,30 +1,30 @@
 package ru.relex.cryptoexg.user.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.relex.cryptoexg.currency.CurrencyName;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @SuppressWarnings("java:S116")
-public class AddMoneyRequestDto {
+public class GetMoneyRequestDto {
     @NotBlank
     private String secret_key;
 
-    @JsonProperty("BTC_wallet")
-    @Positive
-    private Double BTC_wallet;
+    @NotNull
+    private CurrencyName currency;
 
-    @JsonProperty("TON_wallet")
+    @NotNull
     @Positive
-    private Double TON_wallet;
+    private Double count;
 
-    @JsonProperty("RUB_wallet")
-    @Positive
-    private Double RUB_wallet;
+    private String credit_card;
+
+    private String wallet;
 }

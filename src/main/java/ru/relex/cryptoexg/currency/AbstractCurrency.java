@@ -35,7 +35,9 @@ public abstract class AbstractCurrency<T extends AbstractCurrency> {
     }
 
     public abstract CurrencyName getName();
+
     public abstract double getMinUnit();
+
     public abstract int getMaxExponent();
 
     public void plus(T currency) {
@@ -47,6 +49,19 @@ public abstract class AbstractCurrency<T extends AbstractCurrency> {
 
             this.mantis += mantisInExponent;
             this.exponent += currency.getExponent() - getMaxExponent() * mantisInExponent;
+        }
+    }
+
+    public void minus(T currency) {
+        if (this.mantis >= currency.getMantis() && this.exponent >= currency.getExponent()) {
+            this.mantis -= currency.getMantis();
+            this.exponent -= currency.getExponent();
+        } else if (this.exponent < currency.getMantis()
+                && (this.mantis - currency.getMantis() - 1) > currency.getMantis()) {
+            this.mantis -= (currency.getMantis() + 1);
+            this.exponent += getMaxExponent() - currency.getExponent();
+        } else {
+            throw new IllegalArgumentException("Insufficient funds to perform the operation");
         }
     }
 

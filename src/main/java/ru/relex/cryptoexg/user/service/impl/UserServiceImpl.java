@@ -8,13 +8,16 @@ import ru.relex.cryptoexg.currency.BTC;
 import ru.relex.cryptoexg.currency.CurrencyName;
 import ru.relex.cryptoexg.currency.RUB;
 import ru.relex.cryptoexg.currency.TON;
+import ru.relex.cryptoexg.exception.status.BadRequestException;
 import ru.relex.cryptoexg.user.dto.request.AddMoneyRequestDto;
 import ru.relex.cryptoexg.user.dto.request.AddUserRequestDto;
+import ru.relex.cryptoexg.user.dto.request.GetMoneyRequestDto;
 import ru.relex.cryptoexg.user.dto.response.UserBalanceFullResponseDto;
 import ru.relex.cryptoexg.user.dto.response.UserShortResponseDto;
 import ru.relex.cryptoexg.user.dto.response.UserUpdatedBalanceResponseDto;
 import ru.relex.cryptoexg.user.entity.User;
 import ru.relex.cryptoexg.user.entity.wallet.Wallet;
+import ru.relex.cryptoexg.user.exception.wallet.WalletNotFoundException;
 import ru.relex.cryptoexg.user.logger.UserServiceLoggerHelper;
 import ru.relex.cryptoexg.user.mapper.UserMapper;
 import ru.relex.cryptoexg.user.repository.UserJpaRepository;
@@ -22,6 +25,7 @@ import ru.relex.cryptoexg.user.repository.wallet.WalletJpaRepository;
 import ru.relex.cryptoexg.user.service.UserService;
 import ru.relex.cryptoexg.user.util.UserSecretKeyGenerator;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -103,6 +107,70 @@ public class UserServiceImpl implements UserService {
         var balance = UserMapper.toUserBalanceFullResponseDto(user);
         UserServiceLoggerHelper.userFullBalanceReturned(log, balance);
         return balance;
+    }
+
+    @Override
+    @Transactional
+    public UserUpdatedBalanceResponseDto getMoney(GetMoneyRequestDto moneyDto) {
+        if (moneyDto.getCredit_card() == null && moneyDto.getWallet() == null) {
+            throw new BadRequestException("No output method specified");
+        }
+
+        if (moneyDto.getCredit_card() != null && moneyDto.getWallet() != null) {
+            throw new BadRequestException("Several output methods are specified");
+        }
+
+        User user = userRepository.getReferenceBySecretKey(moneyDto.getSecret_key());
+
+        Wallet wallet = findWallet(user, moneyDto.getCurrency());
+        if (wallet == null) {
+            throw WalletNotFoundException.fromSecretKeyAndCurrencyName(
+                    moneyDto.getSecret_key(), moneyDto.getCurrency());
+        }
+
+        Wallet updatedWallet;
+        switch (moneyDto.getCurrency()) {
+            case BTC -> {
+                BTC btc = new BTC(wallet.getMantis(), wallet.getExponent());
+                btc.minus(new BTC(moneyDto.getCount()));
+
+                wallet.setMantis(btc.getMantis());
+                wallet.setExponent(btc.getExponent());
+
+                updatedWallet = walletRepository.save(wallet);
+                UserServiceLoggerHelper.userWalletUpdated(log, updatedWallet);
+            }
+            case TON -> {
+                TON ton = new TON(wallet.getMantis(), wallet.getExponent());
+                ton.minus(new TON(moneyDto.getCount()));
+
+                wallet.setMantis(ton.getMantis());
+                wallet.setExponent(ton.getExponent());
+
+                updatedWallet = walletRepository.save(wallet);
+                UserServiceLoggerHelper.userWalletUpdated(log, updatedWallet);
+            }
+            case RUB -> {
+                RUB rub = new RUB(wallet.getMantis(), wallet.getExponent());
+                rub.minus(new RUB(moneyDto.getCount()));
+
+                wallet.setMantis(rub.getMantis());
+                wallet.setExponent(rub.getExponent());
+
+                updatedWallet = walletRepository.save(wallet);
+                UserServiceLoggerHelper.userWalletUpdated(log, updatedWallet);
+            }
+            default -> throw new RuntimeException(String.format(
+                    "Currency '%s' not configured", moneyDto.getCurrency()));
+        }
+
+        if (moneyDto.getCredit_card() != null) {
+
+        } else if (moneyDto.getWallet() != null) {
+
+        }
+
+        return UserMapper.toUserUpdatedBalanceResponseDto(Collections.singletonList(updatedWallet));
     }
 
     private Wallet getOrCreateWallet(User user, CurrencyName currencyName) {

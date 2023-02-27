@@ -10,305 +10,1040 @@
 			"name": "user",
 			"item": [
 				{
-					"name": "Регистрация нового пользователя (Без псевдонима)",
-					"event": [
+					"name": "validation",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
-									"});",
-									"pm.test(\"error has json-response\", function () {",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"email@mail.ru\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "validation of user registration",
+							"item": [
+								{
+									"name": "username",
+									"item": [
+										{
+											"name": "Регистрация нового пользователя (Без псевдонима)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"email\": \"email@mail.ru\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Регистрация нового пользователя (Пустой псевдоним)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"username\": \"\",\n    \"email\": \"email@mail.ru\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Регистрация нового пользователя (Псевдоним из пустоты)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"username\": \"    \",\n    \"email\": \"email@mail.ru\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "email",
+									"item": [
+										{
+											"name": "Регистрация нового пользователя (Без почты)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"username\": \"username\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Регистрация нового пользователя (Пустая почта)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"username\": \"username\",\n    \"email\": \"\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Регистрация нового пользователя (Почта из пустоты)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"username\": \"username\",\n    \"email\": \"      \"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Регистрация нового пользователя (Некорректная почта)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"username\": \"vasya_vezunchik\",\n    \"email\": \"mail.ru\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
-							}
+							]
 						},
-						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{userBaseUrl}}"
+						{
+							"name": "validation of wallet replenishment",
+							"item": [
+								{
+									"name": "secret key",
+									"item": [
+										{
+											"name": "Пополнение кошелька (Без секретного ключа)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"RUB_wallet\": 170\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"deposit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Пополнение кошелька (Пустой секретный ключ)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"secret_key\": \"\",\n    \"RUB_wallet\": 170\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"deposit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Пополнение кошелька (Секретный ключ из пустоты)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"secret_key\": \"     \",\n    \"RUB_wallet\": 170\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"deposit"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "amount of currency",
+									"item": [
+										{
+											"name": "Пополнение кошелька (Отрицательное количество)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"RUB_wallet\": -100\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"deposit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Пополнение кошелька (Нулевое количество)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"RUB_wallet\": 0\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"deposit"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "validation of withdrawal from the wallet",
+							"item": [
+								{
+									"name": "secret key",
+									"item": [
+										{
+											"name": "Вывод средств из кошелька (Без секретного ключа)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "    {\n        \"currency\": \"RUB\",\n        \"count\": 1500,\n        \"credit_card\": \"4000 5876 3247 5964\"\n    }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Вывод средств из кошелька (Пустой секретный ключ)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n        \"secret_key\": \"\",\n        \"currency\": \"RUB\",\n        \"count\": 1500,\n        \"credit_card\": \"4000 5876 3247 5964\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Вывод средств из кошелька (Секретный ключ из пустоты)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n        \"secret_key\": \"     \",\n        \"currency\": \"RUB\",\n        \"count\": 1500,\n        \"credit_card\": \"4000 5876 3247 5964\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "currency",
+									"item": [
+										{
+											"name": "Вывод средств из кошелька (Без валюты)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n        \"secret_key\": \"secret_key\",\n        \"count\": 1500,\n        \"credit_card\": \"4000 5876 3247 5964\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Вывод средств из кошелька (Неизвестная валюта)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n        \"secret_key\": \"secret_key\",\n        \"currency\": \"Unknown currency\",\n        \"count\": 1500,\n        \"credit_card\": \"4000 5876 3247 5964\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "amount of currency",
+									"item": [
+										{
+											"name": "Вывод средств из кошелька (Без количества)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n        \"secret_key\": \"secret_key\",\n        \"currency\": \"RUB\",\n        \"credit_card\": \"4000 5876 3247 5964\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Вывод средств из кошелька (Отрицательное количество)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n        \"secret_key\": \"secret_key\",\n        \"currency\": \"RUB\",\n        \"count\": -200,\n        \"credit_card\": \"4000 5876 3247 5964\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Вывод средств из кошелька (Нулевое количество)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n        \"secret_key\": \"secret_key\",\n        \"currency\": \"RUB\",\n        \"count\": 0,\n        \"credit_card\": \"4000 5876 3247 5964\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Validation of withdrawal methods",
+									"item": [
+										{
+											"name": "Вывод средств из кошелька (Указано два способа)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n        \"secret_key\": \"secret_key\",\n        \"currency\": \"RUB\",\n        \"count\": 1500,\n        \"credit_card\": \"4000 5876 3247 5964\",\n        \"wallet\": \"abcdefghijk1234567891011\"\n    }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Вывод средств из кошелька (Не указано не одного способа)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n        \"secret_key\": \"secret_key\",\n        \"currency\": \"RUB\",\n        \"count\": 1500\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{userBaseUrl}}",
+														"wallet",
+														"withdraw"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Регистрация нового пользователя (Пустой псевдоним)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
-									"});",
-									"pm.test(\"error has json-response\", function () {",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"\",\n    \"email\": \"email@mail.ru\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{userBaseUrl}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Регистрация нового пользователя (Псевдоним из пустоты)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
-									"});",
-									"pm.test(\"error has json-response\", function () {",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"    \",\n    \"email\": \"email@mail.ru\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{userBaseUrl}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Регистрация нового пользователя (Без почты)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
-									"});",
-									"pm.test(\"error has json-response\", function () {",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"username\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{userBaseUrl}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Регистрация нового пользователя (Пустая почта)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
-									"});",
-									"pm.test(\"error has json-response\", function () {",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"username\",\n    \"email\": \"\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{userBaseUrl}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Регистрация нового пользователя (Почта из пустоты)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
-									"});",
-									"pm.test(\"error has json-response\", function () {",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"username\",\n    \"email\": \"      \"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{userBaseUrl}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Регистрация нового пользователя (Некорректная почта)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
-									"});",
-									"pm.test(\"error has json-response\", function () {",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"vasya_vezunchik\",\n    \"email\": \"mail.ru\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{userBaseUrl}}"
-							]
-						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "Регистрация нового пользователя",
@@ -497,96 +1232,6 @@
 					"response": []
 				},
 				{
-					"name": "Пополнение кошелька (Отрицательное количество)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
-									"});",
-									"pm.test(\"error has json-response\", function () {",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"RUB_wallet\": -100\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{userBaseUrl}}",
-								"wallet",
-								"deposit"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Пополнение кошелька (Нулевое количество)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
-									"});",
-									"pm.test(\"error has json-response\", function () {",
-									"    pm.response.to.be.withBody;",
-									"    pm.response.to.be.json;",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"RUB_wallet\": 0\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"{{userBaseUrl}}",
-								"wallet",
-								"deposit"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Пополнение кошелька",
 					"event": [
 						{
@@ -604,9 +1249,9 @@
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData).to.have.property('RUB_wallet');",
 									"});",
-									"pm.test(\"'RUB_wallet' must be 1270\", function () {",
+									"pm.test(\"'RUB_wallet' must be 1000\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.RUB_wallet).eql('1270');",
+									"    pm.expect(jsonData.RUB_wallet).eql('1000');",
 									"});"
 								],
 								"type": "text/javascript"
@@ -618,7 +1263,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"RUB_wallet\": 1270\n}",
+							"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"RUB_wallet\": 1000\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -634,6 +1279,112 @@
 								"{{userBaseUrl}}",
 								"wallet",
 								"deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Вывод средств из кошелька (На банковскую карту)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 201\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+									"});",
+									"pm.test(\"user account has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"user account has 'RUB_wallet'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('RUB_wallet');",
+									"});",
+									"pm.test(\"'RUB_wallet' must be 800\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.RUB_wallet).eql('800');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"currency\": \"RUB\",\n    \"count\": 200,\n    \"credit_card\": \"4000 5876 3247 5964\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}",
+								"wallet",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Вывод средств из кошелька (На крипто-счёт)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 201\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+									"});",
+									"pm.test(\"user account has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"user account has 'RUB_wallet'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('RUB_wallet');",
+									"});",
+									"pm.test(\"'RUB_wallet' must be 450\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.RUB_wallet).eql('450');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"currency\": \"RUB\",\n    \"count\": 350,\n    \"wallet\": \"abcdefghijk1234567891011\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/withdraw",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}",
+								"wallet",
+								"withdraw"
 							]
 						}
 					},
