@@ -10,6 +10,307 @@
 			"name": "user",
 			"item": [
 				{
+					"name": "Регистрация нового пользователя (Без псевдонима)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"email@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация нового пользователя (Пустой псевдоним)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"\",\n    \"email\": \"email@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация нового пользователя (Псевдоним из пустоты)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"    \",\n    \"email\": \"email@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация нового пользователя (Без почты)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"username\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация нового пользователя (Пустая почта)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"username\",\n    \"email\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация нового пользователя (Почта из пустоты)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"username\",\n    \"email\": \"      \"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация нового пользователя (Некорректная почта)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"vasya_vezunchik\",\n    \"email\": \"mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Регистрация нового пользователя",
 					"event": [
 						{
@@ -46,6 +347,49 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"vasya_vezunchik\",\n    \"email\": \"vasyu_kolbasit@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Регистрация нового пользователя (Дубликат псевдонима)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"vasya_vezunchik\",\n    \"email\": \"email@mail.ru\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -108,18 +452,22 @@
 					"response": []
 				},
 				{
-					"name": "Регистрация нового пользователя (Дубликат псевдонима)",
+					"name": "Просмотр баланса своего кошелька",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"status code is 400\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"pm.test(\"status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
 									"});",
-									"pm.test(\"error has json-response\", function () {",
+									"pm.test(\"balance has json-response\", function () {",
 									"    pm.response.to.be.withBody;",
 									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"balance empty\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.empty",
 									"});"
 								],
 								"type": "text/javascript"
@@ -127,24 +475,22 @@
 						}
 					],
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"vasya_vezunchik\",\n    \"email\": \"email@mail.ru\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
+						"method": "GET",
+						"header": [
+							{
+								"key": "secret_key",
+								"value": "{{user_1_secret_key}}",
+								"type": "text"
 							}
-						},
+						],
 						"url": {
-							"raw": "{{baseUrl}}/{{userBaseUrl}}",
+							"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"{{userBaseUrl}}"
+								"{{userBaseUrl}}",
+								"wallet"
 							]
 						}
 					},

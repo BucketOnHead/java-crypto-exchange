@@ -2,6 +2,7 @@ package ru.relex.cryptoexg.advice;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,7 +14,10 @@ import ru.relex.cryptoexg.exception.NotUniqueElementException;
 @Slf4j
 public class GlobalControllerAdvice {
 
-    @ExceptionHandler({NotUniqueElementException.class})
+    @ExceptionHandler({
+            NotUniqueElementException.class,
+            MethodArgumentNotValidException.class
+    })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse notUniqueElementExceptionHandler(final Exception ex) {
         String reason = "Violation of uniqueness";
@@ -28,6 +32,7 @@ public class GlobalControllerAdvice {
     @ExceptionHandler({Throwable.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse throwableHandler(final Throwable ex) {
+        ex.printStackTrace();
         String reason = "Unexpected server error";
         log.error(reason + ": {}.", ex.getMessage());
         return ErrorResponse.builder()
