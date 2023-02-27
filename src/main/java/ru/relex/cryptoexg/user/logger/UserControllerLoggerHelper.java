@@ -3,6 +3,7 @@ package ru.relex.cryptoexg.user.logger;
 import lombok.experimental.UtilityClass;
 import org.slf4j.Logger;
 import ru.relex.cryptoexg.user.dto.request.AddUserRequestDto;
+import ru.relex.cryptoexg.user.dto.request.AddMoneyRequestDto;
 
 @UtilityClass
 public final class UserControllerLoggerHelper {
@@ -17,6 +18,21 @@ public final class UserControllerLoggerHelper {
                         + "].",
                 userDto.getUsername(),
                 userDto.getEmail());
+    }
+
+    public static void addMoney(
+            Logger log,
+            AddMoneyRequestDto moneyDto
+    ) {
+        log.info("add USER_MONEY["
+                        + "BTC={}, "
+                        + "TON={}, "
+                        + "RUB={}, "
+                        + "..."
+                        + "].",
+                moneyDto.getBTC_wallet(),
+                moneyDto.getTON_wallet(),
+                moneyDto.getRUB_wallet());
     }
 
     public static void getUserBalance(

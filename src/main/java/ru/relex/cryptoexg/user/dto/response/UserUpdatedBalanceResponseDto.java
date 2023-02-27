@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @SuppressWarnings("java:S116")
-public class UserBalanceFullResponseDto {
+public class UserUpdatedBalanceResponseDto {
     @JsonProperty("BTC_wallet")
     private String BTC_wallet;
 

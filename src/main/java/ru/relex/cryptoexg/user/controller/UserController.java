@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.relex.cryptoexg.user.dto.request.AddUserRequestDto;
+import ru.relex.cryptoexg.user.dto.request.AddMoneyRequestDto;
 import ru.relex.cryptoexg.user.dto.response.UserBalanceFullResponseDto;
 import ru.relex.cryptoexg.user.dto.response.UserShortResponseDto;
+import ru.relex.cryptoexg.user.dto.response.UserUpdatedBalanceResponseDto;
 import ru.relex.cryptoexg.user.logger.UserControllerLoggerHelper;
 import ru.relex.cryptoexg.user.service.UserService;
 
@@ -36,5 +38,14 @@ public class UserController {
     ) {
         UserControllerLoggerHelper.getUserBalance(log, secretKey);
         return userService.getUserBalance(secretKey);
+    }
+
+    @PostMapping("/wallet/deposit")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserUpdatedBalanceResponseDto addMoney(
+            @RequestBody @Valid AddMoneyRequestDto moneyDto
+    ) {
+        UserControllerLoggerHelper.addMoney(log, moneyDto);
+        return userService.addMoney(moneyDto);
     }
 }

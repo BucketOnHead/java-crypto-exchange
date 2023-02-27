@@ -14,13 +14,22 @@ import ru.relex.cryptoexg.exception.NotUniqueElementException;
 @Slf4j
 public class GlobalControllerAdvice {
 
-    @ExceptionHandler({
-            NotUniqueElementException.class,
-            MethodArgumentNotValidException.class
-    })
+    @ExceptionHandler({NotUniqueElementException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse notUniqueElementExceptionHandler(final Exception ex) {
         String reason = "Violation of uniqueness";
+        log.error(reason + ": {}.", ex.getMessage());
+        return ErrorResponse.builder()
+                .reason(reason)
+                .message(ex.getMessage())
+                .errors(ErrorExtractor.extractErrors(ex))
+                .build();
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse invalidRequestHandler(final Exception ex) {
+        String reason = "Invalid request";
         log.error(reason + ": {}.", ex.getMessage());
         return ErrorResponse.builder()
                 .reason(reason)

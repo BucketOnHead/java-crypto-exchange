@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class AbstractCurrency {
+public abstract class AbstractCurrency<T extends AbstractCurrency> {
     private long mantis;
     private int exponent;
 
@@ -36,9 +36,26 @@ public abstract class AbstractCurrency {
 
     public abstract CurrencyName getName();
     public abstract double getMinUnit();
+    public abstract int getMaxExponent();
+
+    public void plus(T currency) {
+        this.mantis += currency.getMantis();
+        this.exponent += currency.getExponent();
+
+        if (this.exponent >= getMaxExponent()) {
+            int mantisInExponent = exponent / getMaxExponent();
+
+            this.mantis += mantisInExponent;
+            this.exponent += currency.getExponent() - getMaxExponent() * mantisInExponent;
+        }
+    }
 
     public String toStringValue() {
-        return String.valueOf(mantis + exponent * getMinUnit());
+        if (exponent == 0) {
+            return String.valueOf(mantis);
+        } else {
+            return String.valueOf(mantis + exponent * getMinUnit());
+        }
     }
 
     private long extractMantis(double amount) {

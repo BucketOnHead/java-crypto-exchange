@@ -7,6 +7,7 @@ import ru.relex.cryptoexg.currency.TON;
 import ru.relex.cryptoexg.user.dto.request.AddUserRequestDto;
 import ru.relex.cryptoexg.user.dto.response.UserBalanceFullResponseDto;
 import ru.relex.cryptoexg.user.dto.response.UserShortResponseDto;
+import ru.relex.cryptoexg.user.dto.response.UserUpdatedBalanceResponseDto;
 import ru.relex.cryptoexg.user.entity.User;
 import ru.relex.cryptoexg.user.entity.wallet.Wallet;
 
@@ -56,5 +57,33 @@ public final class UserMapper {
         }
 
         return responseDto;
+    }
+
+    public static UserUpdatedBalanceResponseDto toUserUpdatedBalanceResponseDto(Iterable<Wallet> wallets) {
+        var updatedBalanceDto = new UserUpdatedBalanceResponseDto();
+
+        for (Wallet wallet : wallets) {
+            if (wallet == null) {
+                continue;
+            }
+
+            switch (wallet.getCurrencyName()) {
+                case BTC -> {
+                    BTC btc = new BTC(wallet.getMantis(), wallet.getExponent());
+                    updatedBalanceDto.setBTC_wallet(btc.toStringValue());
+                }
+                case TON -> {
+                    TON ton = new TON(wallet.getMantis(), wallet.getExponent());
+                    updatedBalanceDto.setTON_wallet(ton.toStringValue());
+                }
+                case RUB -> {
+                    RUB rub = new RUB(wallet.getMantis(), wallet.getExponent());
+                    updatedBalanceDto.setRUB_wallet(rub.toStringValue());
+                }
+                default -> throw new RuntimeException("Currency '%s' not configured");
+            }
+        }
+
+        return updatedBalanceDto;
     }
 }

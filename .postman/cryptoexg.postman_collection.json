@@ -495,6 +495,149 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Пополнение кошелька (Отрицательное количество)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"RUB_wallet\": -100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}",
+								"wallet",
+								"deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Пополнение кошелька (Нулевое количество)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});",
+									"pm.test(\"error has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"RUB_wallet\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}",
+								"wallet",
+								"deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Пополнение кошелька",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status code is 201\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+									"});",
+									"pm.test(\"user account has json-response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"user account has 'RUB_wallet'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('RUB_wallet');",
+									"});",
+									"pm.test(\"'RUB_wallet' must be 1270\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.RUB_wallet).eql('1270');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"secret_key\": \"{{user_1_secret_key}}\",\n    \"RUB_wallet\": 1270\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{userBaseUrl}}/wallet/deposit",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{userBaseUrl}}",
+								"wallet",
+								"deposit"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
