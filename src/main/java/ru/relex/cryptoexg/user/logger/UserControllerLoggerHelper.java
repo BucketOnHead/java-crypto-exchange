@@ -18,4 +18,14 @@ public final class UserControllerLoggerHelper {
                 userDto.getUsername(),
                 userDto.getEmail());
     }
+
+    public static void getUserBalance(
+            Logger log,
+            String secretKey
+    ) {
+        log.info("get USER_BALANCE["
+                        + "secret_key='{}'"
+                        + "].",
+                secretKey);
+    }
 }
