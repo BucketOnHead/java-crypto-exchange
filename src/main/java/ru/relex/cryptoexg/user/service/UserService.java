@@ -14,5 +14,12 @@ public interface UserService {
 
     UserBalanceFullResponseDto getUserBalance(String secretKey);
 
+    /**
+     * Метод выводит деньги из кошелька
+     * на карту / крипто-счёт.
+     *
+     * @param moneyDto запрос на вывод средств.
+     * @return Обновлённое значение кошелька.
+     */
     UserUpdatedBalanceResponseDto getMoney(GetMoneyRequestDto moneyDto);
 }

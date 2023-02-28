@@ -5,7 +5,6 @@ public class BTC extends AbstractCurrency<BTC> {
     public static final double MIN_UNIT = 1e-8;
     public static final double MAX_EXPONENT = 1 / MIN_UNIT;
 
-
     protected BTC(long amount) {
         super(amount);
     }

@@ -14,17 +14,18 @@ import javax.validation.constraints.Positive;
 @SuppressWarnings("java:S116")
 public class AddMoneyRequestDto {
     @NotBlank
-    private String secret_key;
+    @JsonProperty("secret_key")
+    private String secretKey;
 
+    @Positive
     @JsonProperty("BTC_wallet")
-    @Positive
-    private Double BTC_wallet;
+    private Double btcWallet;
 
+    @Positive
     @JsonProperty("TON_wallet")
-    @Positive
-    private Double TON_wallet;
+    private Double tonWallet;
 
-    @JsonProperty("RUB_wallet")
     @Positive
-    private Double RUB_wallet;
+    @JsonProperty("RUB_wallet")
+    private Double rubWallet;
 }

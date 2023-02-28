@@ -28,7 +28,7 @@ public final class UserMapper {
     public static UserShortResponseDto toUserShortResponseDto(User user) {
         var responseDto = new UserShortResponseDto();
 
-        responseDto.setSecret_key(user.getSecretKey());
+        responseDto.setSecretKey(user.getSecretKey());
 
         return responseDto;
     }
@@ -42,15 +42,15 @@ public final class UserMapper {
             switch (wallet.getCurrencyName()) {
                 case BTC -> {
                     BTC btc = new BTC(wallet.getMantis(), wallet.getExponent());
-                    responseDto.setBTC_wallet(btc.toStringValue());
+                    responseDto.setBtcWallet(btc.toStringValue());
                 }
                 case TON -> {
                     TON ton = new TON(wallet.getMantis(), wallet.getExponent());
-                    responseDto.setTON_wallet(ton.toStringValue());
+                    responseDto.setTonWallet(ton.toStringValue());
                 }
                 case RUB -> {
                     RUB rub = new RUB(wallet.getMantis(), wallet.getExponent());
-                    responseDto.setRUB_wallet(rub.toStringValue());
+                    responseDto.setRubWallet(rub.toStringValue());
                 }
                 default -> throw new RuntimeException("Currency '%s' not configured");
             }
@@ -70,17 +70,18 @@ public final class UserMapper {
             switch (wallet.getCurrencyName()) {
                 case BTC -> {
                     BTC btc = new BTC(wallet.getMantis(), wallet.getExponent());
-                    updatedBalanceDto.setBTC_wallet(btc.toStringValue());
+                    updatedBalanceDto.setBtcWallet(btc.toStringValue());
                 }
                 case TON -> {
                     TON ton = new TON(wallet.getMantis(), wallet.getExponent());
-                    updatedBalanceDto.setTON_wallet(ton.toStringValue());
+                    updatedBalanceDto.setTonWallet(ton.toStringValue());
                 }
                 case RUB -> {
                     RUB rub = new RUB(wallet.getMantis(), wallet.getExponent());
-                    updatedBalanceDto.setRUB_wallet(rub.toStringValue());
+                    updatedBalanceDto.setRubWallet(rub.toStringValue());
                 }
-                default -> throw new RuntimeException("Currency '%s' not configured");
+                default -> throw new RuntimeException(String.format(
+                        "Currency '%s' not configured", wallet.getCurrencyName()));
             }
         }
 

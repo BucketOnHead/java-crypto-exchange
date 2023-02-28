@@ -1,5 +1,6 @@
 package ru.relex.cryptoexg.user.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,8 @@ import javax.validation.constraints.Positive;
 @SuppressWarnings("java:S116")
 public class GetMoneyRequestDto {
     @NotBlank
-    private String secret_key;
+    @JsonProperty("secret_key")
+    private String secretKey;
 
     @NotNull
     private CurrencyName currency;
@@ -24,7 +26,8 @@ public class GetMoneyRequestDto {
     @Positive
     private Double count;
 
-    private String credit_card;
+    @JsonProperty("credit_card")
+    private String creditCard;
 
     private String wallet;
 }

@@ -52,15 +52,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserUpdatedBalanceResponseDto addMoney(AddMoneyRequestDto moneyDto) {
-        User user = userRepository.getReferenceBySecretKey(moneyDto.getSecret_key());
+        User user = userRepository.getReferenceBySecretKey(moneyDto.getSecretKey());
 
         List<Wallet> updatedWallets = new LinkedList<>();
 
-        if (moneyDto.getBTC_wallet() != null) {
+        if (moneyDto.getBtcWallet() != null) {
             Wallet btcWallet = getOrCreateWallet(user, CurrencyName.BTC);
 
             BTC btc = new BTC(btcWallet.getMantis(), btcWallet.getExponent());
-            btc.plus(new BTC(moneyDto.getBTC_wallet()));
+            btc.plus(new BTC(moneyDto.getBtcWallet()));
 
             btcWallet.setMantis(btc.getMantis());
             btcWallet.setExponent(btc.getExponent());
@@ -70,11 +70,11 @@ public class UserServiceImpl implements UserService {
             updatedWallets.add(updatedWallet);
         }
 
-        if (moneyDto.getTON_wallet() != null) {
+        if (moneyDto.getTonWallet() != null) {
             Wallet tonWallet = getOrCreateWallet(user, CurrencyName.TON);
 
             TON ton = new TON(tonWallet.getMantis(), tonWallet.getExponent());
-            ton.plus(new TON(moneyDto.getTON_wallet()));
+            ton.plus(new TON(moneyDto.getTonWallet()));
 
             tonWallet.setMantis(ton.getMantis());
             tonWallet.setExponent(ton.getExponent());
@@ -84,11 +84,11 @@ public class UserServiceImpl implements UserService {
             updatedWallets.add(updatedWallet);
         }
 
-        if (moneyDto.getRUB_wallet() != null) {
+        if (moneyDto.getRubWallet() != null) {
             Wallet rubWallet = getOrCreateWallet(user, CurrencyName.RUB);
 
             RUB rub = new RUB(rubWallet.getMantis(), rubWallet.getExponent());
-            rub.plus(new RUB(moneyDto.getRUB_wallet()));
+            rub.plus(new RUB(moneyDto.getRubWallet()));
 
             rubWallet.setMantis(rub.getMantis());
             rubWallet.setExponent(rub.getExponent());
@@ -112,20 +112,20 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserUpdatedBalanceResponseDto getMoney(GetMoneyRequestDto moneyDto) {
-        if (moneyDto.getCredit_card() == null && moneyDto.getWallet() == null) {
+        if (moneyDto.getCreditCard() == null && moneyDto.getWallet() == null) {
             throw new BadRequestException("No output method specified");
         }
 
-        if (moneyDto.getCredit_card() != null && moneyDto.getWallet() != null) {
+        if (moneyDto.getCreditCard() != null && moneyDto.getWallet() != null) {
             throw new BadRequestException("Several output methods are specified");
         }
 
-        User user = userRepository.getReferenceBySecretKey(moneyDto.getSecret_key());
+        User user = userRepository.getReferenceBySecretKey(moneyDto.getSecretKey());
 
         Wallet wallet = findWallet(user, moneyDto.getCurrency());
         if (wallet == null) {
             throw WalletNotFoundException.fromSecretKeyAndCurrencyName(
-                    moneyDto.getSecret_key(), moneyDto.getCurrency());
+                    moneyDto.getSecretKey(), moneyDto.getCurrency());
         }
 
         Wallet updatedWallet;
@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService {
                     "Currency '%s' not configured", moneyDto.getCurrency()));
         }
 
-        if (moneyDto.getCredit_card() != null) {
+        if (moneyDto.getCreditCard() != null) {
 
         } else if (moneyDto.getWallet() != null) {
 

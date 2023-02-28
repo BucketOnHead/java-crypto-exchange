@@ -1,5 +1,6 @@
 package ru.relex.cryptoexg.user.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,5 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @SuppressWarnings("java:S116")
 public class UserShortResponseDto {
-    private String secret_key;
+    @JsonProperty("secret_key")
+    private String secretKey;
 }

@@ -45,9 +45,9 @@ public final class UserServiceLoggerHelper {
                         + "RUB={}, "
                         + "..."
                         + "] returned.",
-                balanceFullResponseDto.getBTC_wallet(),
-                balanceFullResponseDto.getTON_wallet(),
-                balanceFullResponseDto.getRUB_wallet());
+                balanceFullResponseDto.getBtcWallet(),
+                balanceFullResponseDto.getTonWallet(),
+                balanceFullResponseDto.getRubWallet());
     }
 
     public static void userWalletUpdated(

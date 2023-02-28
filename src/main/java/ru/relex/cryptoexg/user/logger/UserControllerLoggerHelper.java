@@ -31,9 +31,9 @@ public final class UserControllerLoggerHelper {
                         + "RUB={}, "
                         + "..."
                         + "].",
-                moneyDto.getBTC_wallet(),
-                moneyDto.getTON_wallet(),
-                moneyDto.getRUB_wallet());
+                moneyDto.getBtcWallet(),
+                moneyDto.getTonWallet(),
+                moneyDto.getRubWallet());
     }
 
     public static void getUserBalance(
@@ -57,10 +57,10 @@ public final class UserControllerLoggerHelper {
                         + "credit_card='{}', "
                         + "wallet='{}'"
                         + "].",
-                moneyDto.getSecret_key(),
+                moneyDto.getSecretKey(),
                 moneyDto.getCurrency(),
                 moneyDto.getCount(),
-                moneyDto.getCredit_card(),
+                moneyDto.getCreditCard(),
                 moneyDto.getWallet());
     }
 }

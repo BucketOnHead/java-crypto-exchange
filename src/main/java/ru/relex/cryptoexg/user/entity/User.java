@@ -6,7 +6,7 @@ import lombok.Setter;
 import ru.relex.cryptoexg.user.entity.wallet.Wallet;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -31,5 +31,5 @@ public class User {
 
     @OneToMany
     @JoinColumn(name = "wallet_id")
-    private List<Wallet> wallets = new ArrayList<>();
+    private List<Wallet> wallets = new LinkedList<>();
 }
