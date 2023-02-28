@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 import ru.relex.cryptoexg.user.entity.User;
 import ru.relex.cryptoexg.user.exception.NotUniqueUserEmailException;
 import ru.relex.cryptoexg.user.exception.NotUniqueUserUsernameException;
+import ru.relex.cryptoexg.user.exception.UserNotFoundException;
+
+import java.util.Optional;
 
 @Repository
 public interface UserJpaRepository extends JpaRepository<User, Long> {
@@ -14,6 +17,18 @@ public interface UserJpaRepository extends JpaRepository<User, Long> {
     boolean existsByUsername(String username);
 
     boolean existsBySecretKey(String secretKey);
+
+    Optional<User> findBySecretKey(String secretKey);
+
+    default User getReferenceBySecretKey(String secretKey) {
+        Optional<User> user = findBySecretKey(secretKey);
+
+        if (user.isEmpty()) {
+            throw UserNotFoundException.fromSecretKey(secretKey);
+        }
+
+        return user.get();
+    }
 
     /**
      * Метод проверяет, содержится ли в хранилище

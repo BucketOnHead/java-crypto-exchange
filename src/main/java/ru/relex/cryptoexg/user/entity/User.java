@@ -3,8 +3,11 @@ package ru.relex.cryptoexg.user.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.relex.cryptoexg.user.entity.wallet.Wallet;
 
 import javax.persistence.*;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -25,4 +28,8 @@ public class User {
 
     @Column(name = "secret_key", length = 34, unique = true, nullable = false)
     private String secretKey;
+
+    @OneToMany
+    @JoinColumn(name = "wallet_id")
+    private List<Wallet> wallets = new LinkedList<>();
 }
