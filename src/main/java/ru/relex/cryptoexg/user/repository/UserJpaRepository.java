@@ -16,12 +16,10 @@ public interface UserJpaRepository extends JpaRepository<User, Long> {
 
     boolean existsByUsername(String username);
 
-    boolean existsBySecretKey(String secretKey);
+    Optional<User> findBySecretKeyValue(String secretKey);
 
-    Optional<User> findBySecretKey(String secretKey);
-
-    default User getReferenceBySecretKey(String secretKey) {
-        Optional<User> user = findBySecretKey(secretKey);
+    default User getReferenceBySecretKeyValue(String secretKey) {
+        Optional<User> user = findBySecretKeyValue(secretKey);
 
         if (user.isEmpty()) {
             throw UserNotFoundException.fromSecretKey(secretKey);

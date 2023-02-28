@@ -28,7 +28,7 @@ public final class UserMapper {
     public static UserShortResponseDto toUserShortResponseDto(User user) {
         var responseDto = new UserShortResponseDto();
 
-        responseDto.setSecretKey(user.getSecretKey());
+        responseDto.setSecretKey(user.getSecretKey().getValue());
 
         return responseDto;
     }

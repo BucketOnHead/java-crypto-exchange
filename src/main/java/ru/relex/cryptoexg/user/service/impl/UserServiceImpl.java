@@ -9,6 +9,8 @@ import ru.relex.cryptoexg.currency.CurrencyName;
 import ru.relex.cryptoexg.currency.RUB;
 import ru.relex.cryptoexg.currency.TON;
 import ru.relex.cryptoexg.exception.status.BadRequestException;
+import ru.relex.cryptoexg.key.entity.SecretKey;
+import ru.relex.cryptoexg.key.repository.SecretKeyJpaRepository;
 import ru.relex.cryptoexg.user.dto.request.AddMoneyRequestDto;
 import ru.relex.cryptoexg.user.dto.request.AddUserRequestDto;
 import ru.relex.cryptoexg.user.dto.request.GetMoneyRequestDto;
@@ -36,14 +38,20 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserJpaRepository userRepository;
     private final WalletJpaRepository walletRepository;
+    private final SecretKeyJpaRepository keyRepository;
 
     @Override
     @Transactional
     public UserShortResponseDto addUser(AddUserRequestDto userDto) {
         userRepository.checkUniqueEmail(userDto.getEmail());
         userRepository.checkUniqueUsername(userDto.getUsername());
+
+        SecretKey secretKey = generateSecretKey();
+        keyRepository.save(secretKey);
+
         User user = UserMapper.toUser(userDto);
-        user.setSecretKey(getSecretKey());
+        user.setSecretKey(secretKey);
+
         User savedUser = userRepository.save(user);
         UserServiceLoggerHelper.userSaved(log, savedUser);
         return UserMapper.toUserShortResponseDto(savedUser);
@@ -52,7 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserUpdatedBalanceResponseDto addMoney(AddMoneyRequestDto moneyDto) {
-        User user = userRepository.getReferenceBySecretKey(moneyDto.getSecretKey());
+        User user = userRepository.getReferenceBySecretKeyValue(moneyDto.getSecretKey());
 
         List<Wallet> updatedWallets = new LinkedList<>();
 
@@ -103,7 +111,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserBalanceFullResponseDto getUserBalance(String secretKey) {
-        User user = userRepository.getReferenceBySecretKey(secretKey);
+        User user = userRepository.getReferenceBySecretKeyValue(secretKey);
         var balance = UserMapper.toUserBalanceFullResponseDto(user);
         UserServiceLoggerHelper.userFullBalanceReturned(log, balance);
         return balance;
@@ -120,7 +128,7 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException("Several output methods are specified");
         }
 
-        User user = userRepository.getReferenceBySecretKey(moneyDto.getSecretKey());
+        User user = userRepository.getReferenceBySecretKeyValue(moneyDto.getSecretKey());
 
         Wallet wallet = findWallet(user, moneyDto.getCurrency());
         if (wallet == null) {
@@ -203,12 +211,12 @@ public class UserServiceImpl implements UserService {
         return savedWallet;
     }
 
-    private String getSecretKey() {
-        String secretKey;
+    private SecretKey generateSecretKey() {
+        SecretKey secretKey;
 
         do {
             secretKey = UserSecretKeyGenerator.generateSecretKey();
-        } while (userRepository.existsBySecretKey(secretKey));
+        } while (keyRepository.existsByValue(secretKey.getValue()));
 
         return secretKey;
     }

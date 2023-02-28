@@ -3,6 +3,7 @@ package ru.relex.cryptoexg.user.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.relex.cryptoexg.key.entity.SecretKey;
 import ru.relex.cryptoexg.user.entity.wallet.Wallet;
 
 import javax.persistence.*;
@@ -20,14 +21,15 @@ public class User {
     @Column(name = "user_id", nullable = false)
     private Long id;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "secret_key_id")
+    private SecretKey secretKey;
+
     @Column(length = 100, unique = true, nullable = false)
     private String username;
 
     @Column(length = 100, unique = true, nullable = false)
     private String email;
-
-    @Column(name = "secret_key", length = 34, unique = true, nullable = false)
-    private String secretKey;
 
     @OneToMany
     @JoinColumn(name = "wallet_id")
