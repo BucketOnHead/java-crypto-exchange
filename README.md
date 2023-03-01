@@ -43,7 +43,7 @@
 Пример запроса:
 ```JSON
 {
-    "secret_key": "", // секретный идентификатор пользователя
+    "secret_key": "ZmuBy1XKyz5lNYuB8XACXrFEH5eSryYWrV", 
     "RUB_wallet": 1000
 }
 ```
@@ -60,7 +60,7 @@
 Пример запроса:
 ```JSON
 {
-    "secret_key": "", // секретный идентификатор пользователя
+    "secret_key": "ZmuBy1XKyz5lNYuB8XACXrFEH5eSryYWrV",
     "currency": "RUB",
     "count": 200,
     "credit_card": "4000 5876 3247 5964"
