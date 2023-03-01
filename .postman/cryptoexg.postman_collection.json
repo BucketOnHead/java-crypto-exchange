@@ -1391,6 +1391,271 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "validation",
+					"item": [
+						{
+							"name": "validation of the rate update",
+							"item": [
+								{
+									"name": "secret key",
+									"item": [
+										{
+											"name": "Обновление курса валют (Без секретного ключа)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"base_currency\": \"TON\",\n\t\"BTC\": \"0.000095\",\n\t\"RUB\": \"150\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{adminBaseUrl}}/rate",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{adminBaseUrl}}",
+														"rate"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Обновление курса валют (Пустой секретный ключ)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"secret_key\": \"\",\n    \"base_currency\": \"TON\",\n    \"BTC\": \"0.000095\",\n    \"RUB\": \"150\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{adminBaseUrl}}/rate",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{adminBaseUrl}}",
+														"rate"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Обновление курса валют (Секретный ключ из пустоты)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"secret_key\": \"     \",\n    \"base_currency\": \"TON\",\n    \"BTC\": \"0.000095\",\n    \"RUB\": \"150\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{adminBaseUrl}}/rate",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{adminBaseUrl}}",
+														"rate"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "amount of curremcy",
+									"item": [
+										{
+											"name": "Обновление курса валют (Отрицательное количество)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"secret_key\": \"{{admin_1_secret_key}}\",\n    \"base_currency\": \"TON\",\n    \"BTC\": \"-0.000095\",\n    \"RUB\": \"-150\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{adminBaseUrl}}/rate",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{adminBaseUrl}}",
+														"rate"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Обновление курса валют (Нулевое количество)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"status code is 400\", function () {",
+															"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+															"});",
+															"pm.test(\"error has json-response\", function () {",
+															"    pm.response.to.be.withBody;",
+															"    pm.response.to.be.json;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"secret_key\": \"{{admin_1_secret_key}}\",\n    \"base_currency\": \"TON\",\n    \"BTC\": \"0\",\n    \"RUB\": \"150\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/{{adminBaseUrl}}/rate",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"{{adminBaseUrl}}",
+														"rate"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [
@@ -1401,6 +1666,10 @@
 		{
 			"key": "userBaseUrl",
 			"value": "users"
+		},
+		{
+			"key": "adminBaseUrl",
+			"value": "admins"
 		}
 	]
 }
