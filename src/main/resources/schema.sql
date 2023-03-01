@@ -26,3 +26,19 @@ CREATE TABLE IF NOT EXISTS user_wallets
     user_id   BIGINT REFERENCES users (user_id),
     wallet_id BIGINT REFERENCES wallets (wallet_id)
 );
+
+CREATE TABLE IF NOT EXISTS admins
+(
+    admin_id      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
+    secret_key_id BIGINT REFERENCES secret_keys (secret_key_id)
+);
+
+CREATE TABLE IF NOT EXISTS currency_rates
+(
+    rate_id        BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
+    from_currency  VARCHAR(3)                                      NOT NULL,
+    to_currency    VARCHAR(3)                                      NOT NULL,
+    mantis   INT                                             NOT NULL,
+    exponent INT                                             NOT NULL,
+    UNIQUE (from_currency, to_currency)
+);
